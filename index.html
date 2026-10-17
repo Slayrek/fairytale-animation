@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Казка про Лицаря та Фею 🐾</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        user-select: none;
+      }
+      body {
+        background-color: #0b0914;
+        color: #ffffff;
+        font-family: 'Pixelify Sans', monospace, sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+      }
+      #game-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(116, 75, 230, 0.2);
+        border: 2px solid #231e3d;
+        border-radius: 4px;
+        background: #000;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      canvas#gameCanvas {
+        display: block;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      /* Sharp high-resolution pixel dialogue box overlay */
+      .dialogue-overlay {
+        position: absolute;
+        bottom: 3%;
+        left: 3%;
+        right: 3%;
+        height: 35%;
+        background: rgba(12, 10, 24, 0.94);
+        border: 3px solid #4c3f78;
+        outline: 2px solid #c5a059;
+        outline-offset: -5px;
+        padding: 14px 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        pointer-events: none;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+      }
+      .speaker-badge {
+        position: absolute;
+        top: -19px;
+        left: 14px;
+        background: #231e3d;
+        border: 2px solid #c5a059;
+        color: #f59e0b;
+        font-size: 19px;
+        font-weight: 700;
+        padding: 3px 14px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+      .speaker-badge.fairy {
+        color: #f472b6;
+      }
+      .speaker-badge.apprentice {
+        color: #60a5fa;
+      }
+      .speaker-badge.narrator {
+        color: #c4b5fd;
+        border-color: #8b5cf6;
+      }
+      .dialogue-text {
+        color: #ffffff;
+        font-size: 23px;
+        line-height: 1.45;
+        letter-spacing: 0.4px;
+        margin-top: 6px;
+        word-wrap: break-word;
+        text-shadow: 2px 2px 0 #000000;
+        font-weight: 500;
+      }
+      .next-arrow {
+        position: absolute;
+        bottom: 10px;
+        right: 16px;
+        color: #ffd166;
+        font-size: 20px;
+        animation: arrowBounce 0.8s infinite alternate ease-in-out;
+        display: none;
+      }
+      .next-arrow.visible {
+        display: block;
+      }
+
+      @keyframes arrowBounce {
+        from { transform: translateY(0); }
+        to { transform: translateY(4px); }
+      }
+
+      /* Chapter splash screen */
+      .chapter-splash {
+        position: absolute;
+        inset: 0;
+        background: rgba(10, 8, 20, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+      .chapter-splash.active {
+        opacity: 1;
+      }
+      .chapter-title {
+        color: #ffefa0;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-align: center;
+        padding: 0 25px;
+        text-shadow: 3px 3px 0 #000, 0 0 20px rgba(255, 239, 160, 0.5);
+      }
+
+      .hud-controls {
+        position: absolute;
+        bottom: 10px;
+        right: 14px;
+        font-size: 14px;
+        color: #9d94c4;
+        display: flex;
+        gap: 18px;
+        pointer-events: none;
+      }
+      .hud-badge {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid #322b54;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-CWoFqc2J.js"></script>
+  </head>
+  <body>
+    <div id="game-container">
+      <canvas id="gameCanvas" width="256" height="144"></canvas>
+      <div id="dialogue-overlay" class="dialogue-overlay">
+        <div id="speaker-badge" class="speaker-badge"></div>
+        <div id="dialogue-text" class="dialogue-text"></div>
+        <div id="next-arrow" class="next-arrow">▼</div>
+      </div>
+      <div id="chapter-splash" class="chapter-splash">
+        <div id="chapter-title" class="chapter-title"></div>
+      </div>
+    </div>
+    <div class="hud-controls">
+      <span class="hud-badge">[Клік / Space / Enter] — Далі</span>
+      <span class="hud-badge">[M] — Музика</span>
+      <span class="hud-badge">[R] — Спочатку</span>
+    </div>
+  </body>
+</html>
